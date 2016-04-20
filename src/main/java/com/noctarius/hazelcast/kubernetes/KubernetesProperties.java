@@ -67,6 +67,10 @@ public final class KubernetesProperties {
      */
     public static final PropertyDefinition NAMESPACE = property("namespace", STRING);
 
+    /**
+     * <p>Configuration key: <tt>kubernetes-master</tt></p>
+     * Defines the URL of the Kubernetes master server. Defaults to https://kubernetes.default.svc
+     */
     public static final PropertyDefinition KUBERNETES_MASTER_URL = property("kubernetes-master", STRING);
 
     // Prevent instantiation

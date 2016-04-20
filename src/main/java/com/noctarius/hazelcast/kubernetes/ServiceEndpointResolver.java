@@ -49,14 +49,20 @@ class ServiceEndpointResolver
     public ServiceEndpointResolver(ILogger logger, String serviceName, String namespace, String kubernetesMaster) {
         super(logger);
 
+        logger.info("Kubernetes Master: " + kubernetesMaster);
         this.serviceName = serviceName;
         this.namespace = namespace;
 
         String accountToken = getAccountToken();
         logger.info("Kubernetes Discovery: Bearer Token { " + accountToken + " }");
-        Config config = new ConfigBuilder().withOauthToken(accountToken).build();
-        config.setMasterUrl(kubernetesMaster);
+        Config config = new ConfigBuilder().withOauthToken(accountToken)
+                .withMasterUrl(kubernetesMaster)
+                .build();
+
+        logger.info("Kubernetes config: " +config.getMasterUrl());
         this.client = new DefaultKubernetesClient(config);
+
+        logger.info("MasterURL in client: " + this.client.getMasterUrl());
     }
 
     List<DiscoveryNode> resolve() {
