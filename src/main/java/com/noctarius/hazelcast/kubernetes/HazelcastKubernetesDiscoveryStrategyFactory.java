@@ -16,17 +16,13 @@
  */
 package com.noctarius.hazelcast.kubernetes;
 
+import java.util.*;
+
 import com.hazelcast.config.properties.PropertyDefinition;
 import com.hazelcast.logging.ILogger;
 import com.hazelcast.spi.discovery.DiscoveryNode;
 import com.hazelcast.spi.discovery.DiscoveryStrategy;
 import com.hazelcast.spi.discovery.DiscoveryStrategyFactory;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Just the factory to create the Kubernetes Discovery Strategy
@@ -40,6 +36,7 @@ public class HazelcastKubernetesDiscoveryStrategyFactory implements DiscoveryStr
         propertyDefinitions.add(KubernetesProperties.SERVICE_DNS);
         propertyDefinitions.add(KubernetesProperties.SERVICE_NAME);
         propertyDefinitions.add(KubernetesProperties.NAMESPACE);
+        propertyDefinitions.add(KubernetesProperties.KUBERNETES_MASTER_URL);
         PROPERTY_DEFINITIONS = Collections.unmodifiableCollection(propertyDefinitions);
     }
 

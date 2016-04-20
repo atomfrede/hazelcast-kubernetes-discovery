@@ -16,11 +16,11 @@
  */
 package com.noctarius.hazelcast.kubernetes;
 
+import static com.hazelcast.config.properties.PropertyTypeConverter.STRING;
+
 import com.hazelcast.config.properties.PropertyDefinition;
 import com.hazelcast.config.properties.SimplePropertyDefinition;
 import com.hazelcast.core.TypeConverter;
-
-import static com.hazelcast.config.properties.PropertyTypeConverter.STRING;
 
 /**
  * <p>Configuration class of the Hazelcast Discovery Plugin for <a href="http://kubernetes.io">Kubernetes</a>.</p>
@@ -66,6 +66,8 @@ public final class KubernetesProperties {
      * Defines the namespace of the application POD through the Service Discovery REST API of Kubernetes.
      */
     public static final PropertyDefinition NAMESPACE = property("namespace", STRING);
+
+    public static final PropertyDefinition KUBERNETES_MASTER_URL = property("kubernetes-master", STRING);
 
     // Prevent instantiation
     private KubernetesProperties() {

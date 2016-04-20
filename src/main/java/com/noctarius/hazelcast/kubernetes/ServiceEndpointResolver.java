@@ -16,6 +16,16 @@
  */
 package com.noctarius.hazelcast.kubernetes;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 import com.hazelcast.logging.ILogger;
 import com.hazelcast.nio.Address;
 import com.hazelcast.spi.discovery.DiscoveryNode;
@@ -28,16 +38,6 @@ import io.fabric8.kubernetes.client.ConfigBuilder;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClient;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 class ServiceEndpointResolver
         extends HazelcastKubernetesDiscoveryStrategy.EndpointResolver {
 
@@ -46,7 +46,7 @@ class ServiceEndpointResolver
 
     private final KubernetesClient client;
 
-    public ServiceEndpointResolver(ILogger logger, String serviceName, String namespace) {
+    public ServiceEndpointResolver(ILogger logger, String serviceName, String namespace, String kubernetesMaster) {
         super(logger);
 
         this.serviceName = serviceName;
@@ -55,6 +55,7 @@ class ServiceEndpointResolver
         String accountToken = getAccountToken();
         logger.info("Kubernetes Discovery: Bearer Token { " + accountToken + " }");
         Config config = new ConfigBuilder().withOauthToken(accountToken).build();
+        config.setMasterUrl(kubernetesMaster);
         this.client = new DefaultKubernetesClient(config);
     }
 
