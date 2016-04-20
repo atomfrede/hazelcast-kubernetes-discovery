@@ -41,7 +41,7 @@ final class HazelcastKubernetesDiscoveryStrategy
         String serviceDns = getOrNull(properties, KUBERNETES_SYSTEM_PREFIX, SERVICE_DNS);
         String serviceName = getOrNull(properties, KUBERNETES_SYSTEM_PREFIX, SERVICE_NAME);
         String namespace = getOrNull(properties, KUBERNETES_SYSTEM_PREFIX, NAMESPACE);
-        String kubernetesMaster = getOrDefault(properties, KUBERNETES_SYSTEM_PREFIX, NAMESPACE, "https://kubernetes.default.svc");
+        String kubernetesMaster = getOrDefault(properties, KUBERNETES_SYSTEM_PREFIX, KUBERNETES_MASTER_URL, "https://kubernetes.default.svc");
 
         if (serviceDns == null && (serviceName == null || namespace == null)) {
             throw new RuntimeException(
@@ -51,7 +51,8 @@ final class HazelcastKubernetesDiscoveryStrategy
         logger.info("Kubernetes Discovery properties: { "
                 + "service-dns: " + serviceDns + ", "
                 + "service-name: " + serviceName + ", "
-                + "namespace: " + namespace
+                + "namespace: " + namespace + ", "
+                + "kubernetes-master: " + kubernetesMaster
                 + "}");
 
         EndpointResolver endpointResolver;

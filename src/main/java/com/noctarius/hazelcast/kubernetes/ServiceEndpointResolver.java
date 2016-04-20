@@ -49,7 +49,6 @@ class ServiceEndpointResolver
     public ServiceEndpointResolver(ILogger logger, String serviceName, String namespace, String kubernetesMaster) {
         super(logger);
 
-        logger.info("Kubernetes Master: " + kubernetesMaster);
         this.serviceName = serviceName;
         this.namespace = namespace;
 
@@ -59,10 +58,7 @@ class ServiceEndpointResolver
                 .withMasterUrl(kubernetesMaster)
                 .build();
 
-        logger.info("Kubernetes config: " +config.getMasterUrl());
         this.client = new DefaultKubernetesClient(config);
-
-        logger.info("MasterURL in client: " + this.client.getMasterUrl());
     }
 
     List<DiscoveryNode> resolve() {
